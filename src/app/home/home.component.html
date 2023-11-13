@@ -1,0 +1,43 @@
+
+<div class="heading">
+    <h2>Welcome to Currency Exchange Converter</h2>
+</div>
+<div class="converter">
+    <form [formGroup]="exchangeForm" (ngSubmit)="onSubmit(exchangeForm)" >
+        <div class="field">
+        <label class="label" >Amount</label>
+        <input class="input" type="number" id="amount" name="amount" placeholder="Enter amount" formControlName="amount">
+    </div>
+    <div class="field ">
+        <label class="label" >Date</label>
+          <input class="input" id="date" type="date"
+         name="date" matInput [min]="mindate" 
+         formControlName="date" value="date" placeholder="choose a Date" >
+    </div>
+    <div class="field">
+        <label class="label"  >From:</label>
+        <select class="input" id="from" name="from"  formControlName="fromCurrency">
+            <option *ngFor='let currency of currencyType' [value]=currency>{{currency}}</option>
+            
+        </select>
+    </div>
+    <div class="field">
+        <label class="label" >To:</label>
+        <select class="input" id="to" name="to" formControlName="toCurrency">
+            <option *ngFor='let currency of currencyType' [value]=currency>{{currency}}</option>
+        </select>
+    </div>
+    <div class="error" *ngIf="showError">
+        Please input all the fields.
+    </div>
+        <button class="input button" type="submit" >Convert</button>
+    </form>
+    <div *ngIf="showResult">
+<h2>Results</h2>
+    <p >
+        Date: {{exchangeForm.value.date | date:'YYYY-MM-dd'}}</p>
+        <p >   Conversion Rate: 1 {{exchangeForm.value.fromCurrency}} =  {{exchangeRateValue  | number : '1.0-4'}} {{exchangeForm.value.toCurrency }} </p>
+        <p > {{exchangeForm.value.amount}} {{exchangeForm.value.fromCurrency}}  = {{finalConversionValue | number : '1.0-4'}} {{exchangeForm.value.toCurrency }}
+    </p>
+</div>
+</div>
